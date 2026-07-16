@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EVSpro — Portfolio</title>
-    <!-- Google Fonts: Inter для чистой премиальной типографики -->
+    <title>EVSpro — Розробка преміальних веб-інтерфейсів</title>
+    <!-- Подключение шрифтов: Playfair Display для утонченных заголовков, Inter для чистого интерфейсного текста -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -16,267 +16,281 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
                 }
             }
         }
     </script>
     <style>
-        /* Базовые стили для благородного темного фона */
+        /* Благородный теплый светлый фон (галерейный/студийный стиль) */
         body {
-            background-color: #080b11;
+            background-color: #FAF9F6;
+            color: #1A1A1A;
             overflow-x: hidden;
         }
 
-        /* Чистый глассморфизм без визуального мусора */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px) saturate(120%);
-            -webkit-backdrop-filter: blur(16px) saturate(120%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        /* Тонкие, изящные линии сетки (в стиле архитектурных бюро) */
+        .border-elegant {
+            border-color: rgba(26, 26, 26, 0.08);
         }
 
-        .glass-nav {
-            background: rgba(8, 11, 17, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Элегантные карточки без неонового свечения — только чистые тени и акценты */
+        .portfolio-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(26, 26, 26, 0.06);
+            box-shadow: 0 4px 20px -2px rgba(26, 26, 26, 0.02);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Мягкое свечение для интерактивных элементов */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .portfolio-card:hover {
+            border-color: rgba(26, 26, 26, 0.15);
+            box-shadow: 0 20px 35px -10px rgba(26, 26, 26, 0.05);
+            transform: translateY(-2px);
         }
 
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
+        /* Интерактивные подчеркивания */
+        .hover-underline {
+            position: relative;
         }
-
-        /* Анимированные фоновые сферы для эффекта глубины */
-        .blob {
+        .hover-underline::after {
+            content: '';
             position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            z-index: 0;
-            opacity: 0.4;
-            pointer-events: none;
-            mix-blend-mode: screen;
-            animation: pulse 12s infinite alternate;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        .hover-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
         }
 
-        @keyframes pulse {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(40px) scale(1.15); }
-        }
-
-        /* Кастомный тонкий скроллбар */
+        /* Тонкий кастомный скроллбар */
         ::-webkit-scrollbar {
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #080b11;
+            background: #FAF9F6;
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(26, 26, 26, 0.15);
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(26, 26, 26, 0.25);
         }
     </style>
 </head>
-<body class="text-slate-100 antialiased selection:bg-indigo-500/30 selection:text-white">
+<body class="antialiased selection:bg-neutral-200 selection:text-neutral-900">
 
-    <!-- Декоративные фоновые свечения -->
-    <div class="blob w-[400px] h-[400px] bg-indigo-600/30 top-[-100px] left-[-50px]"></div>
-    <div class="blob w-[500px] h-[500px] bg-purple-600/20 top-[40%] right-[-100px]" style="animation-delay: -4s;"></div>
-    <div class="blob w-[350px] h-[350px] bg-blue-600/20 bottom-[-50px] left-[10%]" style="animation-delay: -8s;"></div>
-
-    <!-- Шапка (Навигация) -->
-    <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="https://t.me/evsdev" target="_blank" class="text-lg font-bold tracking-wider hover:opacity-80 transition-opacity flex items-center gap-2">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">EVSpro</span>
-                <span class="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2 py-0.5 rounded-full font-mono">tg: @evsdev</span>
+    <!-- Верхняя навигация -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#FAF9F6]/80 backdrop-blur-md border-b border-elegant">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="https://t.me/evsdev" target="_blank" class="group flex items-center gap-3 text-lg font-bold tracking-tight text-neutral-900">
+                <!-- Telegram ссылка аккуратно вшита внутрь названия EVSpro -->
+                <span class="font-serif italic font-normal text-xl tracking-wide group-hover:text-neutral-600 transition-colors">EVSpro</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-neutral-300"></span>
+                <span class="text-xs font-mono text-neutral-400 font-normal group-hover:text-neutral-600 transition-colors">tg: @evsdev</span>
             </a>
-            <div class="flex items-center gap-8 text-sm font-medium text-slate-400">
-                <a href="#about" class="hover:text-slate-100 transition-colors">Про мене</a>
-                <a href="#portfolio" class="hover:text-slate-100 transition-colors">Портфоліо</a>
-                <a href="https://t.me/evsdev" target="_blank" class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-slate-200 hover:text-white transition-all text-xs font-mono">
-                    Зв'язатися
+            
+            <div class="flex items-center gap-8 text-sm font-medium text-neutral-500">
+                <a href="#about" class="hover:text-neutral-900 transition-colors hover-underline">Про мене</a>
+                <a href="#portfolio" class="hover:text-neutral-900 transition-colors hover-underline">Портфоліо</a>
+                <a href="https://t.me/evsdev" target="_blank" class="px-5 py-2 rounded-full border border-neutral-900/10 hover:border-neutral-900 bg-neutral-900 text-white hover:bg-transparent hover:text-neutral-900 transition-all text-xs tracking-wider uppercase font-semibold">
+                    Контакт
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Главный экран (Hero Section) -->
-    <main class="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20">
-        <section id="about" class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-28">
-            <!-- Текстовый блок -->
-            <div class="md:col-span-7 space-y-6 text-center md:text-left">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/5 border border-indigo-500/15 text-xs text-indigo-300 font-mono">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Вільний для нових проектів
+    <!-- Главная секция (Hero) -->
+    <main class="relative z-10 max-w-6xl mx-auto px-6 pt-36 md:pt-48 pb-24">
+        <section id="about" class="grid grid-cols-1 md:grid-cols-12 gap-16 items-center mb-32">
+            
+            <!-- Текстовый блок: утонченный, без перегруза, чистый швейцарский стиль -->
+            <div class="md:col-span-7 space-y-8 text-left">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-neutral-950/[0.03] border border-neutral-950/[0.06] text-xs font-medium tracking-wide text-neutral-500">
+                    <span class="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
+                    Доступний для обраних проєктів
                 </div>
                 
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] text-white">
-                    Створюю веб-інтерфейси з <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">характером</span>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.1] text-neutral-900 font-serif">
+                    Створюю цифрову <br>
+                    <span class="italic font-normal">естетику</span> та чистий код.
                 </h1>
 
-                <p class="text-lg text-slate-400 max-w-xl font-light leading-relaxed">
-                    Привіт! Я <a href="https://t.me/evsdev" target="_blank" class="font-semibold text-indigo-400 hover:underline">EVSpro</a> — Full-stack веб-розробник. Мій підхід — це чистий код, преміальний мінімалізм та інтерфейси, які приємно не лише розглядати, а й використовувати щодня.
+                <p class="text-lg text-neutral-600 max-w-xl font-light leading-relaxed">
+                    Привіт. Я — <a href="https://t.me/evsdev" target="_blank" class="font-semibold text-neutral-900 hover-underline">EVSpro</a>. Мій підхід базується на витонченому мінімалізмі, безкомпромісній швидкості роботи та увазі до кожної лінії коду. Розробляю інтерфейси, які говорять самі за себе.
                 </p>
 
-                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
-                    <a href="#portfolio" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all text-sm">
-                        Переглянути роботи
+                <!-- Кнопки действия -->
+                <div class="flex flex-wrap items-center gap-5 pt-2">
+                    <a href="#portfolio" class="px-6 py-3.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-white font-medium transition-all text-sm shadow-sm">
+                        Дивитись проєкти
                     </a>
-                    <a href="https://t.me/evsdev" target="_blank" class="px-6 py-3 rounded-xl glass-panel hover:bg-white/10 text-slate-200 hover:text-white transition-all text-sm flex items-center gap-2">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.94-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.37.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
+                    <a href="https://t.me/evsdev" target="_blank" class="px-6 py-3.5 rounded-lg border border-neutral-900/10 hover:border-neutral-900 hover:bg-white text-neutral-800 hover:text-neutral-900 transition-all text-sm flex items-center gap-2">
+                        <span>Написати у Telegram</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
-                        Написати в Telegram
                     </a>
                 </div>
             </div>
 
-            <!-- Фотография в рамке -->
-            <div class="md:col-span-5 flex justify-center">
-                <div class="relative group">
-                    <!-- Заднее декоративное свечение -->
-                    <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <!-- Фотография: стильное оформление, мягкий перевод в монохром -->
+            <div class="md:col-span-5 flex justify-center md:justify-end">
+                <div class="relative w-64 h-64 sm:w-76 sm:h-76 md:w-80 md:h-80">
+                    <!-- Деликатная рамка-акцент -->
+                    <div class="absolute -inset-3 border border-elegant rounded-full pointer-events-none"></div>
+                    <div class="absolute -inset-6 border border-elegant/50 rounded-full pointer-events-none"></div>
                     
-                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-2 border-white/10 glass-panel p-2">
-                        <!-- Твоя фотография (замени на реальный файл, если имя другое) -->
-                        <img src="avatar.png" alt="EVSpro" class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
+                    <div class="relative w-full h-full rounded-full overflow-hidden border border-neutral-900/10 bg-white p-1.5 shadow-sm">
+                        <img src="avatar.png" alt="EVSpro" class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out">
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Раздел Портфолио -->
-        <section id="portfolio" class="space-y-12">
-            <div class="text-center space-y-3">
-                <h2 class="text-3xl font-bold text-white tracking-tight">Портфоліо проектів</h2>
-                <p class="text-slate-400 font-light max-w-md mx-auto">Добірка реалізованих рішень. Натисніть на картку, щоб перейти на сайт.</p>
+        <section id="portfolio" class="space-y-16 pt-12 border-t border-elegant">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="space-y-3">
+                    <span class="text-xs uppercase tracking-widest text-neutral-400 font-semibold font-mono">Portfolio</span>
+                    <h2 class="text-3xl sm:text-4xl font-normal text-neutral-900 font-serif">Обрані роботи</h2>
+                </div>
+                <p class="text-neutral-500 font-light max-w-sm text-sm md:text-right">
+                    Кожен інтерфейс створений вручну, оптимізований для високої продуктивності та ідеального відображення на будь-якому пристрої.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 
                 <!-- Проект 1: Moda.ua -->
-                <a href="https://evgeny-debug.github.io/moda.ua/#/" target="_blank" class="glass-card rounded-2xl overflow-hidden block group">
-                    <!-- Браузерная шапка (Детализация для "не ИИ" эффекта) -->
-                    <div class="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
+                <a href="https://evgeny-debug.github.io/moda.ua/#/" target="_blank" class="portfolio-card rounded-xl overflow-hidden block group">
+                    <!-- Окно браузера в светлой теме (Эффект ручной работы, а не ИИ шаблона) -->
+                    <div class="bg-neutral-50 px-4 py-3.5 flex items-center justify-between border-b border-elegant select-none">
                         <div class="flex items-center gap-1.5">
-                            <span class="w-2.5 h-2.5 rounded-full bg-red-500/50"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/50"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
                         </div>
-                        <div class="text-[10px] text-slate-500 font-mono bg-black/20 px-3 py-1 rounded-md border border-white/5 select-none">
+                        <div class="text-[10px] text-neutral-400 font-mono bg-white px-4 py-1 rounded-md border border-elegant">
                             evgeny-debug.github.io/moda.ua
                         </div>
                         <div class="w-10"></div>
                     </div>
-                    <!-- Тело карточки c iframe предпросмотром -->
-                    <div class="relative h-64 overflow-hidden bg-slate-950">
-                        <iframe src="https://evgeny-debug.github.io/moda.ua/#/" class="w-full h-full border-none pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500" loading="lazy"></iframe>
-                        <!-- Мягкий градиент поверх iframe для читаемости -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                    <!-- Тело превью с аккуратным iframe -->
+                    <div class="relative h-72 overflow-hidden bg-neutral-100">
+                        <iframe src="https://evgeny-debug.github.io/moda.ua/#/" class="w-full h-full border-none pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"></iframe>
+                        <!-- Легкий градиент-затемнение поверх для сохранения стиля карточки -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent opacity-60"></div>
                         <div class="absolute bottom-4 left-6">
-                            <span class="text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2.5 py-1 rounded-full font-mono">Landing Page</span>
+                            <span class="text-xs bg-neutral-900 text-white font-semibold px-3 py-1 rounded-full font-mono tracking-wider uppercase text-[9px]">Landing Page</span>
                         </div>
                     </div>
-                    <!-- Описание -->
-                    <div class="p-6 space-y-2">
-                        <h3 class="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors flex items-center gap-2">
-                            Moda.ua 
-                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    <!-- Описание проекта -->
+                    <div class="p-8 space-y-3">
+                        <h3 class="text-xl font-normal text-neutral-900 font-serif flex items-center justify-between">
+                            <span>Moda.ua</span>
+                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-neutral-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
                         </h3>
-                        <p class="text-sm text-slate-400 font-light leading-relaxed">
-                            Елегантний та швидкий інтернет-магазин одягу. Сучасна типографіка, зручна сітка товарів та адаптація під мобільні пристрої.
+                        <p class="text-sm text-neutral-500 font-light leading-relaxed">
+                            Елегантна та витончена платформа для модного бренду. Бездоганне поєднання чистої типографіки, продуманої структури та адаптивності.
                         </p>
                     </div>
                 </a>
 
                 <!-- Проект 2: EVS.pro -->
-                <a href="https://evgeny-debug.github.io/EVS.pro" target="_blank" class="glass-card rounded-2xl overflow-hidden block group">
-                    <!-- Браузерная шапка -->
-                    <div class="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
+                <a href="https://evgeny-debug.github.io/EVS.pro" target="_blank" class="portfolio-card rounded-xl overflow-hidden block group">
+                    <!-- Окно браузера в светлой теме -->
+                    <div class="bg-neutral-50 px-4 py-3.5 flex items-center justify-between border-b border-elegant select-none">
                         <div class="flex items-center gap-1.5">
-                            <span class="w-2.5 h-2.5 rounded-full bg-red-500/50"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/50"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
                         </div>
-                        <div class="text-[10px] text-slate-500 font-mono bg-black/20 px-3 py-1 rounded-md border border-white/5 select-none">
+                        <div class="text-[10px] text-neutral-400 font-mono bg-white px-4 py-1 rounded-md border border-elegant">
                             evgeny-debug.github.io/EVS.pro
                         </div>
                         <div class="w-10"></div>
                     </div>
-                    <!-- Тело карточки c iframe предпросмотром -->
-                    <div class="relative h-64 overflow-hidden bg-slate-950">
-                        <iframe src="https://evgeny-debug.github.io/EVS.pro" class="w-full h-full border-none pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500" loading="lazy"></iframe>
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                    <!-- Тело превью с аккуратным iframe -->
+                    <div class="relative h-72 overflow-hidden bg-neutral-100">
+                        <iframe src="https://evgeny-debug.github.io/EVS.pro" class="w-full h-full border-none pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"></iframe>
+                        <div class="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent opacity-60"></div>
                         <div class="absolute bottom-4 left-6">
-                            <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-full font-mono">Personal Hub</span>
+                            <span class="text-xs bg-neutral-900 text-white font-semibold px-3 py-1 rounded-full font-mono tracking-wider uppercase text-[9px]">Personal Hub</span>
                         </div>
                     </div>
-                    <!-- Описание -->
-                    <div class="p-6 space-y-2">
-                        <h3 class="text-xl font-bold text-white group-hover:text-purple-300 transition-colors flex items-center gap-2">
-                            EVS.pro 
-                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    <!-- Описание проекта -->
+                    <div class="p-8 space-y-3">
+                        <h3 class="text-xl font-normal text-neutral-900 font-serif flex items-center justify-between">
+                            <span>EVS.pro</span>
+                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-neutral-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
                         </h3>
-                        <p class="text-sm text-slate-400 font-light leading-relaxed">
-                            Технологічне та структуроване цифрове портфоліо. Надійний фронтенд з акцентом на швидкість роботи та чистоту інтерфейсу.
+                        <p class="text-sm text-neutral-500 font-light leading-relaxed">
+                            Персональний веб-хаб розробника з акцентом на швидкість завантаження, високу оптимізацію коду та строгу геометрію в дизайні.
                         </p>
                     </div>
                 </a>
 
-                <!-- Проект 3: BV Jewelry (В разработке) -->
-                <div class="glass-card rounded-2xl overflow-hidden block relative">
-                    <!-- Браузерная шапка -->
-                    <div class="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-2.5 h-2.5 rounded-full bg-red-500/50"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></span>
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/50"></span>
-                        </div>
-                        <div class="text-[10px] text-slate-500 font-mono bg-black/20 px-3 py-1 rounded-md border border-white/5 select-none">
-                            bv-jewelry.com
-                        </div>
-                        <div class="w-10"></div>
-                    </div>
-                    <!-- Тело карточки (симуляция сборки / премиум-заглушка) -->
-                    <div class="relative h-64 overflow-hidden bg-slate-950/80 flex flex-col items-center justify-center text-center p-6 border-b border-white/5">
-                        <!-- Красивый анимированный лоадер или иконка -->
-                        <div class="relative mb-3">
-                            <span class="absolute inline-flex h-12 w-12 rounded-full bg-indigo-400/10 animate-ping"></span>
-                            <div class="relative rounded-full p-3 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                                </svg>
+                <!-- Проект 3: BV Jewelry (В разработке, занимает полную ширину или одну из колонок) -->
+                <div class="portfolio-card rounded-xl overflow-hidden block md:col-span-2">
+                    <div class="grid grid-cols-1 md:grid-cols-12">
+                        <!-- Левая часть: Браузерное окно-заглушка "В разработке" -->
+                        <div class="md:col-span-7 border-b md:border-b-0 md:border-r border-elegant">
+                            <!-- Окно браузера -->
+                            <div class="bg-neutral-50 px-4 py-3.5 flex items-center justify-between border-b border-elegant select-none">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                                </div>
+                                <div class="text-[10px] text-neutral-400 font-mono bg-white px-4 py-1 rounded-md border border-elegant">
+                                    bv-jewelry.com
+                                </div>
+                                <div class="w-10"></div>
+                            </div>
+                            
+                            <!-- Статус "В разработке" -->
+                            <div class="h-64 md:h-80 bg-white flex flex-col items-center justify-center text-center p-8">
+                                <div class="w-12 h-12 rounded-full border border-elegant flex items-center justify-center text-neutral-400 mb-4">
+                                    <svg class="w-5 h-5 animate-spin text-neutral-500" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-[10px] bg-amber-500/10 text-amber-800 border border-amber-500/20 px-3 py-1 rounded-full font-mono tracking-widest uppercase mb-2">Активна розробка</span>
+                                <h4 class="text-lg font-normal text-neutral-900 font-serif">BV Jewelry</h4>
+                                <p class="text-xs text-neutral-400 max-w-xs mt-2 leading-relaxed">
+                                    Розробка повноцінного e-commerce рітейлера для преміальних ювелірних виробів.
+                                </p>
                             </div>
                         </div>
-                        <span class="text-xs text-indigo-300 font-mono tracking-widest uppercase mb-1">У розробці</span>
-                        <h4 class="text-lg font-bold text-white">BV Jewelry</h4>
-                        <p class="text-xs text-slate-400 max-w-xs mt-1">Преміум інтернет-магазин ювелірних виробів. Розробляється на Supabase та Tailwind CSS.</p>
-                    </div>
-                    <!-- Описание -->
-                    <div class="p-6 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-xl font-bold text-slate-400">BV Jewelry</h3>
-                            <span class="text-xs text-slate-500 font-mono">bv-jewelry.com</span>
+
+                        <!-- Правая часть: Описание проекта -->
+                        <div class="md:col-span-5 p-8 flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <span class="text-xs uppercase tracking-widest text-neutral-400 font-semibold font-mono">E-Commerce System</span>
+                                <h3 class="text-2xl font-normal text-neutral-900 font-serif">BV Jewelry</h3>
+                                <p class="text-sm text-neutral-500 font-light leading-relaxed">
+                                    Сучасна інфраструктура онлайн-магазину преміум-сегменту: інтеграція платіжних шлюзів, інтерактивна 3D-вітрина та надшвидка адмін-панель керування замовленнями.
+                                </p>
+                            </div>
+                            <div class="pt-6 border-t border-elegant text-xs text-neutral-400 font-mono flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                Реліз заплановано на третій квартал
+                            </div>
                         </div>
-                        <p class="text-sm text-slate-500 font-light leading-relaxed">
-                            Повноцінний e-commerce з інтеграцією баз даних, кастомною кошиком, адаптивною адмін-панеллю та захищеною обробкою замовлень.
-                        </p>
                     </div>
                 </div>
 
@@ -285,19 +299,22 @@
     </main>
 
     <!-- Подвал (Footer) -->
-    <footer class="relative z-10 border-t border-white/5 bg-slate-950/40 py-12 mt-20">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="text-center md:text-left">
-                <a href="https://t.me/evsdev" target="_blank" class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 hover:opacity-80 transition-opacity">
+    <footer class="relative z-10 border-t border-elegant bg-white py-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="text-center md:text-left space-y-2">
+                <a href="https://t.me/evsdev" target="_blank" class="text-2xl font-serif italic text-neutral-900 hover:text-neutral-600 transition-colors">
                     EVSpro
                 </a>
-                <p class="text-xs text-slate-500 mt-1">&copy; 2026. Всі права захищені.</p>
+                <p class="text-xs text-neutral-400">&copy; 2026. Всі права захищені.</p>
             </div>
-            <div class="flex items-center gap-6 text-sm text-slate-400">
-                <span class="text-xs font-mono text-indigo-400/80">tg: @evsdev</span>
-                <a href="https://t.me/evsdev" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5">
-                    Написати мені
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            
+            <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12 text-sm text-neutral-500 font-medium">
+                <a href="https://t.me/evsdev" target="_blank" class="hover:text-neutral-900 transition-colors flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#229ED9]"></span>
+                    Telegram: @evsdev
+                </a>
+                <a href="mailto:evsdev@evs.pro" class="hover:text-neutral-900 transition-colors hover-underline">
+                    evsdev@evs.pro
                 </a>
             </div>
         </div>
