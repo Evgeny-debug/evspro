@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="uk" id="htmlRoot" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVSpro — Портфоліо розробника</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f9fafb;
+            color: #1f2937;
+            background-image: radial-gradient(#e5e7eb 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.03), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-hover:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.06), 0 4px 10px -2px rgba(0, 0, 0, 0.03);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        iframe { scrollbar-width: none; }
+        iframe::-webkit-scrollbar { display: none; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+        #overlayPanel { transition: transform .35s cubic-bezier(.16,1,.3,1); }
+        #overlayBackdrop { transition: opacity .3s ease; }
+        .lang-btn.active { background:#111827; color:#fff; }
+        .step-line::before{
+            content:"";
+            position:absolute;
+            left:15px; top:38px; bottom:-24px;
+            width:1px;
+            background:linear-gradient(to bottom, #d1d5db, transparent);
+        }
+        .step-item:last-child .step-line::before{ display:none; }
+    </style>
+</head>
+<body class="antialiased selection:bg-gray-200 selection:text-gray-900 flex min-h-screen">
+
+    <!-- БОКОВЕ МЕНЮ (ДЕСКТОП) -->
+    <aside class="hidden md:flex flex-col w-72 fixed top-0 bottom-0 left-0 z-40 p-6 border-r border-gray-200/50 bg-white/65 backdrop-blur-md justify-between overflow-y-auto">
+        <div class="space-y-8">
+            <div class="flex items-start justify-between gap-2">
+                <a href="https://t.me/evsdev" target="_blank" class="flex items-center gap-3 group">
+                    <span class="font-bold text-2xl tracking-tight text-gray-900">EVSpro</span>
+                    <span class="text-[10px] font-semibold text-gray-500 bg-white px-2 py-0.5 rounded border border-gray-200 group-hover:border-gray-400 transition-colors">@evsdev</span>
+                </a>
+            </div>
+            <div>
+                <p class="text-[11px] text-gray-400 font-medium uppercase tracking-wider" data-ua="Full-Stack Розробник" data-en="Full-Stack Developer">Full-Stack Розробник</p>
+                <div class="mt-3 inline-flex items-center rounded-lg border border-gray-200 bg-white p-0.5 text-[11px] font-semibold">
+                    <button type="button" onclick="setLang('ua')" id="langBtnUA" class="lang-btn active px-2.5 py-1 rounded-md transition-colors">UA</button>
+                    <button type="button" onclick="setLang('en')" id="langBtnEN" class="lang-btn px-2.5 py-1 rounded-md transition-colors text-gray-500">EN</button>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-200/60">
+                <img src="022DC951-F127-4F56-88FA-038FFA556318.png" alt="Євген" class="w-12 h-12 rounded-full object-cover border border-white shadow-sm">
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-800">Євген</h4>
+                    <span class="inline-flex items-center gap-1.5 text-[11px] text-emerald-600 font-medium">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span data-ua="Вільний для проєктів" data-en="Available for projects">Вільний для проєктів</span>
+                    </span>
+                </div>
+            </div>
+
+            <nav class="space-y-1">
+                <a href="#about" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-950 hover:bg-gray-50 rounded-lg transition-all group">
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    <span data-ua="Про мене" data-en="About me">Про мене</span>
+                </a>
+                <a href="#tech" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-950 hover:bg-gray-50 rounded-lg transition-all group">
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    <span data-ua="Технології" data-en="Tech stack">Технології</span>
+                </a>
+                <a href="#portfolio" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-950 hover:bg-gray-50 rounded-lg transition-all group">
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    <span data-ua="Мої роботи" data-en="My works">Мої роботи</span>
+                </a>
+                <a href="#workflow" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-950 hover:bg-gray-50 rounded-lg transition-all group">
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    <span data-ua="Етапи роботи" data-en="Process">Етапи роботи</span>
+                </a>
+
+                <div class="pt-3 mt-3 border-t border-gray-200/60 space-y-1">
+                    <p class="px-4 text-[10px] font-semibold uppercase tracking-wider text-gray-400" data-ua="Інформація" data-en="Information">Інформація</p>
+                    <button type="button" onclick="openPage('about-studio')" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-950 hover:bg-gray-50 rounded-lg transition-all group text-left">
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span data-ua="Про нас" data-en="About us">Про нас</span>
+                    </button>
+                    <button type="button" onclick="openPage('payment')" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-950 hover:bg-gray-50 rounded-lg transition-all group text-left">
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span data-ua="Оплата" data-en="Payment">Оплата</span>
+                    </button>
+                    <button type="button" onclick="openPage('guarantee')" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-950 hover:bg-gray-50 rounded-lg transition-all group text-left">
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        <span data-ua="Гарантія" data-en="Guarantee">Гарантія</span>
+                    </button>
+                    <button type="button" onclick="openPage('contacts')" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-950 hover:bg-gray-50 rounded-lg transition-all group text-left">
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span data-ua="Контакти" data-en="Contacts">Контакти</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="space-y-4 pt-6 border-t border-gray-200/50">
+            <a href="https://t.me/evsdev" target="_blank" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold tracking-wide transition-colors">
+                <span data-ua="Зв'язатися" data-en="Get in touch">Зв'язатися</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+            <div class="text-[11px] text-gray-400 text-center">&copy; 2026 EVSpro.</div>
+        </div>
+    </aside>
+
+    <!-- НИЖНІЙ БАР (МОБІЛЬНІ) -->
+    <div class="md:hidden fixed bottom-4 left-4 right-4 z-50">
+        <div class="glass rounded-2xl border border-white/60 p-2 flex items-center justify-around shadow-lg">
+            <a href="#about" class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-gray-950 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <span class="text-[9px] font-semibold tracking-tight" data-ua="Про мене" data-en="About">Про мене</span>
+            </a>
+            <a href="#tech" class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-gray-950 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                <span class="text-[9px] font-semibold tracking-tight" data-ua="Стек" data-en="Stack">Стек</span>
+            </a>
+            <a href="#portfolio" class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-gray-950 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <span class="text-[9px] font-semibold tracking-tight" data-ua="Роботи" data-en="Works">Роботи</span>
+            </a>
+            <button type="button" onclick="openMobileMenu()" class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-gray-950 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <span class="text-[9px] font-semibold tracking-tight" data-ua="Ще" data-en="More">Ще</span>
+            </button>
+            <a href="https://t.me/evsdev" target="_blank" class="flex flex-col items-center gap-1 p-2 text-gray-500 hover:text-gray-950 transition-colors">
+                <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                <span class="text-[9px] font-semibold tracking-tight" data-ua="Чат" data-en="Chat">Чат</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- МОБІЛЬНЕ МЕНЮ "ЩЕ" -->
+    <div id="mobileMenu" class="md:hidden fixed inset-0 z-[90] hidden">
+        <div class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onclick="closeMobileMenu()"></div>
+        <div class="absolute bottom-20 left-4 right-4 glass rounded-2xl border border-white/60 shadow-lg p-3 space-y-1">
+            <div class="flex items-center justify-between px-2 pb-2 mb-1 border-b border-gray-200/60">
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-gray-400" data-ua="Меню" data-en="Menu">Меню</span>
+                <div class="inline-flex items-center rounded-lg border border-gray-200 bg-white p-0.5 text-[11px] font-semibold">
+                    <button type="button" onclick="setLang('ua')" class="lang-btn active px-2.5 py-1 rounded-md transition-colors" id="langBtnUA_m">UA</button>
+                    <button type="button" onclick="setLang('en')" class="lang-btn px-2.5 py-1 rounded-md transition-colors text-gray-500" id="langBtnEN_m">EN</button>
+                </div>
+            </div>
+            <button type="button" onclick="closeMobileMenu(); openPage('about-studio')" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" data-ua="Про нас" data-en="About us">Про нас</button>
+            <button type="button" onclick="closeMobileMenu(); openPage('payment')" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" data-ua="Оплата" data-en="Payment">Оплата</button>
+            <button type="button" onclick="closeMobileMenu(); openPage('guarantee')" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" data-ua="Гарантія" data-en="Guarantee">Гарантія</button>
+            <button type="button" onclick="closeMobileMenu(); openPage('contacts')" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" data-ua="Контакти" data-en="Contacts">Контакти</button>
+            <a href="#workflow" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50" data-ua="Етапи роботи" data-en="Process">Етапи роботи</a>
+        </div>
+    </div>
+
+    <!-- Шапка (МОБІЛЬНІ) -->
+    <header class="md:hidden fixed top-0 left-0 right-0 z-40 glass border-b border-white/60 px-6 h-14 flex items-center justify-between">
+        <span class="font-bold text-lg tracking-tight text-gray-900">EVSpro</span>
+        <a href="https://t.me/evsdev" target="_blank" class="text-xs font-semibold text-gray-500 bg-white px-2.5 py-1 rounded border border-gray-200">tg: @evsdev</a>
+    </header>
+
+    <!-- ОСНОВНИЙ КОНТЕНТ -->
+    <div class="flex-1 md:ml-72 flex flex-col min-h-screen">
+        <main class="flex-grow max-w-4xl mx-auto px-6 pt-24 md:pt-16 pb-32 space-y-24">
+
+            <!-- HERO -->
+            <section id="about" class="flex flex-col-reverse md:flex-row items-center gap-10 md:py-10">
+                <div class="w-full md:w-3/5 space-y-6 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-gray-200 text-xs font-semibold tracking-wide text-gray-600 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span data-ua="Full-Stack Інженер" data-en="Full-Stack Engineer">Full-Stack Інженер</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-[1.15]" data-html data-ua="Створюю зручні,<br/>швидкі веб-інтерфейси." data-en="Building fast,<br/>usable web interfaces.">Створюю зручні,<br/>швидкі веб-інтерфейси.</h1>
+                    <p class="text-base md:text-lg text-gray-600 font-light leading-relaxed" data-ua="Привіт, мене звати Євген. Я спеціалізуюсь на проектуванні та розробці сучасних веб-додатків. Поєдную естетичний мінімалістичний дизайн із надійними серверними рішеннями. Створюю інтерфейси, які приємно використовувати, і код, який легко масштабувати." data-en="Hi, I'm Evgeny. I design and build modern web applications, pairing clean minimal design with reliable backend engineering. I build interfaces that feel good to use, and code that's easy to scale.">Привіт, мене звати Євген. Я спеціалізуюсь на проектуванні та розробці сучасних веб-додатків. Поєдную естетичний мінімалістичний дизайн із надійними серверними рішеннями. Створюю інтерфейси, які приємно використовувати, і код, який легко масштабувати.</p>
+                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-4">
+                        <a href="https://t.me/evsdev" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-medium transition-colors text-sm shadow-sm">
+                            <span data-ua="Обговорити проєкт" data-en="Discuss a project">Обговорити проєкт</span>
+                        </a>
+                        <a href="#portfolio" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-medium transition-colors text-sm shadow-sm">
+                            <span data-ua="Переглянути роботи" data-en="View work">Переглянути роботи</span>
+                        </a>
+                        <button type="button" onclick="openPage('payment')" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-medium transition-colors text-sm shadow-sm">
+                            <span data-ua="Умови оплати" data-en="Payment terms">Умови оплати</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-2/5 flex justify-center">
+                    <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-full glass p-2.5 relative">
+                        <div class="absolute inset-0 rounded-full border border-gray-200 animate-[spin_10s_linear_infinite] pointer-events-none opacity-50"></div>
+                        <img src="022DC951-F127-4F56-88FA-038FFA556318.png" alt="Євген (EVSpro)" class="w-full h-full object-cover rounded-full">
+                    </div>
+                </div>
+            </section>
+
+            <!-- ТЕХНОЛОГІЇ -->
+            <section id="tech" class="space-y-8 pt-6 border-t border-gray-200/50">
+                <div class="space-y-2">
+                    <h2 class="text-2xl font-bold text-gray-900 tracking-tight" data-ua="Технічний стек" data-en="Tech stack">Технічний стек</h2>
+                    <p class="text-sm text-gray-500 font-light max-w-xl" data-ua="Інструменти та технології, які я використовую для створення продуктивних веб-сервісів." data-en="Tools and technologies I use to build fast, reliable web services.">Інструменти та технології, які я використовую для створення продуктивних веб-сервісів.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="glass p-5 rounded-2xl space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 text-sm" data-ua="Frontend" data-en="Frontend">Frontend</h3>
+                            <p class="text-xs text-gray-500 mt-1" data-ua="Чиста верстка та швидкі клієнтські рішення." data-en="Clean markup and fast client-side solutions.">Чиста верстка та швидкі клієнтські рішення.</p>
+                        </div>
+                        <ul class="text-xs text-gray-600 space-y-1.5 font-medium">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> HTML5 / CSS3 / ES6</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Tailwind CSS</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> JavaScript / TypeScript</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass p-5 rounded-2xl space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 text-sm" data-ua="Backend & Logic" data-en="Backend & Logic">Backend & Logic</h3>
+                            <p class="text-xs text-gray-500 mt-1" data-ua="Архітектура серверів та безпечне API." data-en="Server architecture and secure APIs.">Архітектура серверів та безпечне API.</p>
+                        </div>
+                        <ul class="text-xs text-gray-600 space-y-1.5 font-medium">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Node.js / Express</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> REST API / JSON</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> <span data-ua="Робота з інтеграціями" data-en="Third-party integrations">Робота з інтеграціями</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="glass p-5 rounded-2xl space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 text-sm" data-ua="Бази даних & Хмари" data-en="Databases & Cloud">Бази даних & Хмари</h3>
+                            <p class="text-xs text-gray-500 mt-1" data-ua="Зберігання та структурування інформації." data-en="Storing and structuring data.">Зберігання та структурування інформації.</p>
+                        </div>
+                        <ul class="text-xs text-gray-600 space-y-1.5 font-medium">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> PostgreSQL</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Supabase / Firebase</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> <span data-ua="Хмарний деплой / Git" data-en="Cloud deployment / Git">Хмарний деплой / Git</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ПОРТФОЛІО -->
+            <section id="portfolio" class="space-y-8 pt-6 border-t border-gray-200/50">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div class="space-y-2">
+                        <h2 class="text-2xl font-bold text-gray-900 tracking-tight" data-ua="Розроблені проєкти" data-en="Selected projects">Розроблені проєкти</h2>
+                        <p class="text-sm text-gray-500 font-light max-w-md" data-ua="Кожен сайт — це повнофункціональне рішення з чистим кодом, оптимізоване під мобільні пристрої. Натисніть на картку, щоб дізнатися більше." data-en="Every site is a full working solution with clean code, optimized for mobile. Click a card to see the details.">Кожен сайт — це повнофункціональне рішення з чистим кодом, оптимізоване під мобільні пристрої. Натисніть на картку, щоб дізнатися більше.</p>
+                    </div>
+                </div>
+
+                <div id="portfolioGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+            </section>
+
+            <!-- ЕТАПИ РОБОТИ -->
+            <section id="workflow" class="space-y-8 pt-6 border-t border-gray-200/50">
+                <div class="space-y-2">
+                    <h2 class="text-2xl font-bold text-gray-900 tracking-tight" data-ua="Етапи нашої співпраці" data-en="How we work together">Етапи нашої співпраці</h2>
+                    <p class="text-sm text-gray-500 font-light max-w-xl" data-ua="Як саме я будую процес розробки для досягнення ідеального результату." data-en="How I structure the development process from first sketch to launch.">Як саме я будую процес розробки для досягнення ідеального результату.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                    <div class="p-4 rounded-xl border border-gray-200/40 bg-white/40 space-y-2.5">
+                        <span class="text-xs font-bold text-gray-400 font-mono">01 /</span>
+                        <h4 class="font-semibold text-gray-800 text-sm" data-ua="Аналітика" data-en="Discovery">Аналітика</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed" data-ua="Детально розбираємо ваші цілі, конкурентів та створюємо чітку структуру проєкту." data-en="We map out your goals, competitors, and a clear project structure.">Детально розбираємо ваші цілі, конкурентів та створюємо чітку структуру проєкту.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-200/40 bg-white/40 space-y-2.5">
+                        <span class="text-xs font-bold text-gray-400 font-mono">02 /</span>
+                        <h4 class="font-semibold text-gray-800 text-sm" data-ua="Безкоштовний ескіз" data-en="Free sketch">Безкоштовний ескіз</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed" data-ua="Готую перший безкоштовний ескіз дизайну — без зобов'язань з вашого боку." data-en="I prepare a first free design sketch — no obligation on your side.">Готую перший безкоштовний ескіз дизайну — без зобов'язань з вашого боку.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-200/40 bg-white/40 space-y-2.5">
+                        <span class="text-xs font-bold text-gray-400 font-mono">03 /</span>
+                        <h4 class="font-semibold text-gray-800 text-sm" data-ua="Розробка" data-en="Development">Розробка</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed" data-ua="Пишемо чистий код, підключаємо бази даних і логіку. Оплата поетапно, по 20% на тиждень." data-en="Clean code, databases and logic. Paid in stages, 20% weekly.">Пишемо чистий код, підключаємо бази даних і логіку. Оплата поетапно, по 20% на тиждень.</p>
+                    </div>
+                    <div class="p-4 rounded-xl border border-gray-200/40 bg-white/40 space-y-2.5">
+                        <span class="text-xs font-bold text-gray-400 font-mono">04 /</span>
+                        <h4 class="font-semibold text-gray-800 text-sm" data-ua="Запуск і передача" data-en="Launch & handover">Запуск і передача</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed" data-ua="Тестування, публікація сайту та передача всіх прав і доступів. 3 тижні гарантії на правки." data-en="Testing, publishing, and handover of all rights and access. 3 weeks of free revisions.">Тестування, публікація сайту та передача всіх прав і доступів. 3 тижні гарантії на правки.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <button type="button" onclick="openPage('payment')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold transition-colors">
+                        <span data-ua="Детальніше про оплату" data-en="Payment details">Детальніше про оплату</span>
+                    </button>
+                    <button type="button" onclick="openPage('guarantee')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-semibold transition-colors">
+                        <span data-ua="Умови гарантії" data-en="Guarantee terms">Умови гарантії</span>
+                    </button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- OVERLAY (ПСЕВДО-СТОРІНКИ ТА ДЕТАЛІ ПРОЄКТІВ) -->
+    <div id="overlay" class="fixed inset-0 z-[100] hidden">
+        <div id="overlayBackdrop" class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm opacity-0" onclick="closeOverlay()"></div>
+        <div id="overlayPanel" class="absolute inset-y-0 right-0 w-full sm:w-[560px] md:w-[640px] bg-white shadow-2xl overflow-y-auto translate-x-full">
+            <div class="sticky top-0 bg-white/90 backdrop-blur border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
+                <span id="overlayEyebrow" class="text-xs font-semibold tracking-wider text-gray-400 uppercase"></span>
+                <button type="button" onclick="closeOverlay()" class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-500 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div id="overlayContent" class="px-6 py-8"></div>
+        </div>
+    </div>
+
+<script>
+/* ==================== ДАНІ / CONTENT ==================== */
+let lang = 'ua';
+
+const PROJECTS = [
+  {
+    id: 'moda',
+    badge: { ua:'E-commerce', en:'E-commerce' },
+    color: 'indigo',
+    title: 'Moda.ua',
+    link: 'https://evgeny-debug.github.io/moda.ua/#/',
+    domainLabel: 'moda.ua',
+    height: 'h-64',
+    span: false,
+    short: { ua:'Інтернет-магазин одягу преміум-класу. Зручний адаптивний інтерфейс і оптимізований каталог для високої конверсії.', en:'A premium clothing store. A clean, responsive interface and an optimized catalog built for conversion.' },
+    full: { ua:'Повноцінний інтернет-магазин одягу з акцентом на швидкість і зручність покупки. Каталог адаптований під будь-який екран, а навігація побудована так, щоб клієнт швидко знаходив потрібний товар.', en:'A full clothing e-commerce store focused on speed and ease of purchase. The catalog adapts to any screen, and navigation is built so customers find products quickly.' },
+    features: {
+      ua:['Адаптивна верстка під усі пристрої','Каталог з фільтрами та швидким пошуком','Оптимізована воронка покупки'],
+      en:['Fully responsive layout','Filterable, searchable catalog','Conversion-optimized checkout flow']
+    },
+    tech: ['HTML / CSS / JS','Tailwind CSS','SPA Router']
+  },
+  {
+    id: 'evspro',
+    badge: { ua:'Портфоліо', en:'Portfolio' },
+    color: 'indigo',
+    title: 'EVS.pro',
+    link: 'https://evgeny-debug.github.io/EVS.pro',
+    domainLabel: 'evs.pro',
+    height: 'h-64',
+    span: false,
+    short: { ua:'Особистий інтерактивний веб-хаб для демонстрації навичок побудови швидких веб-додатків.', en:'A personal interactive web hub demonstrating fast web-app architecture.' },
+    full: { ua:'Проєкт, створений як демонстрація архітектурного підходу: мінімальний час завантаження, чиста структура компонентів та охайний glass-інтерфейс.', en:'A project built to demonstrate architectural approach: minimal load time, a clean component structure, and a tidy glass-style interface.' },
+    features: { ua:['Нульовий час завантаження','Чиста компонентна структура','Glass-інтерфейс'], en:['Near-zero load time','Clean component structure','Glass-style interface'] },
+    tech: ['HTML / CSS / JS','Tailwind CSS']
+  },
+  {
+    id: 'bv',
+    badge: { ua:'E-commerce · Флагман', en:'E-commerce · Flagship' },
+    color: 'emerald',
+    title: 'BV Jewelry',
+    link: 'https://bv-jewelry.com',
+    domainLabel: 'bv-jewelry.com',
+    height: 'h-96',
+    span: true,
+    short: { ua:'Повнофункціональна e-commerce інфраструктура для преміального ювелірного бренду.', en:'A full e-commerce infrastructure for a premium jewelry brand.' },
+    full: { ua:'Масштабована база даних, безпечні платежі та зручна панель адміністратора для щоденного керування каталогом і замовленнями преміального ювелірного бренду.', en:'A scalable database, secure payments, and an admin panel for day-to-day catalog and order management for a premium jewelry brand.' },
+    features: { ua:['Захищені платежі','Адмін-панель керування каталогом','Масштабована база даних'], en:['Secured payments','Admin panel for catalog management','Scalable database'] },
+    tech: ['Node.js / Express','PostgreSQL','Supabase','REST API']
+  },
+  {
+    id: 'candle',
+    badge: { ua:'E-commerce · Бренд', en:'E-commerce · Brand' },
+    color: 'amber',
+    title: 'Voskova Svichka',
+    link: 'https://evgeny-debug.github.io/ua/',
+    domainLabel: 'voskova-svichka',
+    height: 'h-64',
+    span: false,
+    short: { ua:'Інтернет-магазин ручних воскових свічок з історією бренду та кошиком покупок.', en:'An online store for handmade wax candles, with a brand story and shopping cart.' },
+    full: { ua:'Магазин ручної роботи: каталог ароматів, кошик з оформленням замовлення та таймлайн історії бренду — від першої витопки на кухні до сьогоднішньої майстерні.', en:'A handmade-goods store: a scented-candle catalog, a cart with checkout, and a brand-history timeline — from the first batch on a kitchen stove to today\'s workshop.' },
+    features: { ua:['Кошик і оформлення замовлення','Таймлайн історії бренду','Каталог з описом ароматів'], en:['Cart with checkout','Brand-history timeline','Catalog with scent descriptions'] },
+    tech: ['HTML / CSS / JS','Адаптивний дизайн']
+  },
+  {
+    id: 'game',
+    badge: { ua:'Гра · Web App', en:'Game · Web App' },
+    color: 'fuchsia',
+    title: 'Neon Survivor: TURBO',
+    link: 'https://evgeny-debug.github.io/game/',
+    domainLabel: 'neon-survivor',
+    height: 'h-64',
+    span: false,
+    short: { ua:'Неоновий top-down шутер на виживання прямо в браузері, з керуванням дотиком.', en:'A neon top-down survival shooter, playable in the browser with touch controls.' },
+    full: { ua:'Аркадна гра на виживання: хвилі ворогів, боси, що з\'являються щохвилини, система комбо та збереження рекордів. Керування — одним пальцем, без встановлення додатків.', en:'An arcade survival game: waves of enemies, bosses every minute, a combo system, and saved high scores. Controlled with a single finger, no install required.' },
+    features: { ua:['Керування дотиком','Хвилі ворогів і боси','Збереження рекордів і кращого часу'], en:['Touch controls','Enemy waves and boss fights','Saved high scores and best time'] },
+    tech: ['JavaScript / Canvas','Ігрова логіка','Оптимізація продуктивності']
+  },
+  {
+    id: 'fixomat',
+    badge: { ua:'Веб-додаток · Калькулятор', en:'Web App · Calculator' },
+    color: 'emerald',
+    title: 'ULTRA FIXOMAT',
+    link: 'https://evgeny-debug.github.io/price-list-with-database/',
+    domainLabel: 'fixomat-pos',
+    height: 'h-80',
+    span: true,
+    short: { ua:'Калькулятор вартості ремонту для майстрів: собівартість запчастин, таксі та маржа партнера — в одному місці.', en:'A repair-cost calculator for technicians: parts cost, taxi, and partner margin — all in one place.' },
+    full: { ua:'Веб-додаток для сервісних майстрів: пошук за брендом, моделлю та деталлю, синхронізована база цін і автоматичний розрахунок фінальної вартості ремонту з урахуванням собівартості запчастини, витрат на таксі та маржі, яка розподіляється з партнером, що привів клієнта.', en:'A web app for repair technicians: search by brand, model, and part, a synced pricing database, and an automatic final-price calculation that accounts for the part\'s cost, taxi delivery, and the margin shared with the referring partner.' },
+    features: { ua:['Пошук за брендом, моделлю і деталлю','Синхронізована база даних цін','Автоматичний розподіл маржі з партнером'], en:['Search by brand, model and part','Synced pricing database','Automatic partner margin split'] },
+    tech: ['JavaScript','Supabase','Логіка розрахунків']
+  }
+];
+
+const COLOR_MAP = {
+  indigo:  { bg:'bg-indigo-50',  border:'border-indigo-100',  text:'text-indigo-600',  dot:'bg-indigo-400' },
+  emerald: { bg:'bg-emerald-50', border:'border-emerald-100', text:'text-emerald-600', dot:'bg-emerald-400' },
+  amber:   { bg:'bg-amber-50',   border:'border-amber-100',   text:'text-amber-600',   dot:'bg-amber-400' },
+  fuchsia: { bg:'bg-fuchsia-50', border:'border-fuchsia-100', text:'text-fuchsia-600', dot:'bg-fuchsia-400' }
+};
+
+const PAGES = {
+  'about-studio': {
+    eyebrow: { ua:'Про нас', en:'About us' },
+    render: () => `
+      <h2 class="text-2xl font-bold text-gray-900 tracking-tight mb-4">${t('Один розробник, повна відповідальність','One developer, full accountability')}</h2>
+      <p class="text-sm text-gray-600 leading-relaxed mb-4">${t('EVSpro — це не агентство, а особистий підхід до розробки. Я веду кожен проєкт особисто, від першого ескізу до передачі готового сайту, тому ви завжди спілкуєтесь напряму зі мною, а не з менеджером.','EVSpro isn\'t an agency — it\'s a personal approach to development. I lead every project myself, from the first sketch to handover, so you always talk directly to me, not a manager.')}</p>
+      <p class="text-sm text-gray-600 leading-relaxed mb-6">${t('Працюю з малим і середнім бізнесом, інтернет-магазинами та особистими брендами, яким потрібен сайт, що дійсно продає й нормально виглядає на телефоні.','I work with small and mid-size businesses, online stores, and personal brands that need a site that actually sells and looks right on a phone.')}</p>
+      <div class="space-y-4">
+        ${valueRow('01', t('Прозорість','Transparency'), t('Чіткі етапи оплати і жодних прихованих платежів.','Clear payment stages and no hidden fees.'))}
+        ${valueRow('02', t('Особиста участь','Personal involvement'), t('Кожен проєкт роблю сам — без субпідрядників.','I build every project myself — no subcontractors.'))}
+        ${valueRow('03', t('Повна передача прав','Full ownership transfer'), t('Після оплати всі доступи й права переходять до вас.','After payment, all access and rights transfer to you.'))}
+      </div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="https://t.me/evsdev" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold transition-colors">${t('Написати в Telegram','Message on Telegram')}</a>
+        <button type="button" onclick="openPage('payment')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-semibold transition-colors">${t('Умови оплати','Payment terms')}</button>
+      </div>
+    `
+  },
+  'payment': {
+    eyebrow: { ua:'Оплата', en:'Payment' },
+    render: () => `
+      <h2 class="text-2xl font-bold text-gray-900 tracking-tight mb-2">${t('Оплата та умови співпраці','Payment & collaboration terms')}</h2>
+      <p class="text-sm text-gray-500 leading-relaxed mb-6">${t('Прозора поетапна оплата — ви платите за вже зроблену роботу, крок за кроком.','Transparent staged payments — you pay for work already done, step by step.')}</p>
+
+      <div class="space-y-0">
+        ${paymentStep('1', t('Безкоштовний ескіз','Free sketch'), t('Перший візуальний ескіз дизайну — безкоштовно і без жодних зобов\'язань з вашого боку.','The first visual design sketch — free, with no obligation on your side.'))}
+        ${paymentStep('2', t('Старт розробки — 20%','Kickoff — 20%'), t('Якщо ескіз сподобався, вносите 20% від погодженої вартості проєкту — і я починаю розробку.','If you like the sketch, you pay 20% of the agreed price — and I start development.'))}
+        ${paymentStep('3', t('Щотижневі платежі — по 20%','Weekly payments — 20% each'), t('Далі раз на тиждень — ще 20% (сума завжди договірна залежно від обсягу зробленого), і так до завершення проєкту.','Then, once a week — another 20% (always negotiable based on progress), until the project is complete.'))}
+        ${paymentStep('4', t('Завершення та передача прав','Completion & handover'), t('Після фінальної оплати передаю повні права власності на сайт і доступи до всіх сервісів: базу даних (Supabase) та реєстратора домену (NIC.UA).','After final payment I hand over full ownership of the site and access to all services: the database (Supabase) and domain registrar (NIC.UA).'))}
+        ${paymentStep('5', t('Гарантія — 3 тижні','Guarantee — 3 weeks'), t('Протягом 3 тижнів після запуску всі правки вносяться безкоштовно.','For 3 weeks after launch, all revisions are free.'), true)}
+      </div>
+
+      <div class="mt-8 p-4 rounded-xl bg-gray-50 border border-gray-200/60 space-y-2">
+        <p class="text-xs text-gray-600 leading-relaxed">${t('• Наповнення сайту (тексти, фото, товари) оцінюється й обговорюється окремо.','• Filling the site with content (text, photos, products) is priced and discussed separately.')}</p>
+        <p class="text-xs text-gray-600 leading-relaxed">${t('• SEO та маркетингове просування замовляються окремо.','• SEO and marketing promotion are ordered separately.')}</p>
+        <p class="text-xs text-gray-600 leading-relaxed">${t('• Базова адаптація під мобільні пристрої вже включена в розробку та запуск.','• Basic mobile adaptation is already included in development and launch.')}</p>
+      </div>
+
+      <h3 class="text-base font-semibold text-gray-900 mt-8 mb-4">${t('Орієнтовні ціни','Indicative pricing')}</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        ${priceCard(t('Дизайн сайту','Website design'), t('окремо від розробки','separate from development'), 'від $50 / from $50')}
+        ${priceCard(t('Лендинг','Landing page'), t('односторінковий сайт','single-page site'), 'від $100 / from $100')}
+        ${priceCard(t('Багатосторінковий сайт','Multi-page site'), t('повноцінний веб-сайт','full website'), 'від $300 / from $300')}
+        ${priceCard(t('Точна вартість','Final price'), t('визначається після ТЗ','set after the brief'), t('договірна','negotiable'))}
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="https://t.me/evsdev" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold transition-colors">${t('Обговорити ціну проєкту','Discuss project pricing')}</a>
+        <button type="button" onclick="openPage('guarantee')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-semibold transition-colors">${t('Умови гарантії','Guarantee terms')}</button>
+      </div>
+    `
+  },
+  'guarantee': {
+    eyebrow: { ua:'Гарантія', en:'Guarantee' },
+    render: () => `
+      <h2 class="text-2xl font-bold text-gray-900 tracking-tight mb-2">${t('Гарантія','Guarantee')}</h2>
+      <p class="text-sm text-gray-500 leading-relaxed mb-6">${t('Після запуску сайту робота не закінчується миттєво — залишається час на правки та повна прозорість щодо доступів.','Once the site launches, the work doesn\'t end that instant — there\'s time for revisions and full transparency on access.')}</p>
+
+      <div class="space-y-4">
+        ${valueRow('01', t('3 тижні безкоштовних правок','3 weeks of free revisions'), t('Протягом 3 тижнів після запуску всі правки в межах узгодженого ТЗ вносяться безкоштовно.','For 3 weeks after launch, all revisions within the agreed scope are free.'))}
+        ${valueRow('02', t('Повна передача прав','Full ownership transfer'), t('Ви отримуєте всі права власності на сайт і доступи до сервісів — Supabase та NIC.UA — жодного lock-in.','You receive full ownership of the site and access to services — Supabase and NIC.UA — no lock-in.'))}
+        ${valueRow('03', t('Що не входить у гарантію','What\'s outside the guarantee'), t('Нові розділи чи функції поза початковим ТЗ — це додаткова робота, вартість якої обговорюється окремо.','New sections or features outside the original brief are additional work, priced separately.'))}
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="https://t.me/evsdev" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold transition-colors">${t('Задати питання','Ask a question')}</a>
+        <button type="button" onclick="openPage('payment')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-semibold transition-colors">${t('Умови оплати','Payment terms')}</button>
+      </div>
+    `
+  },
+  'contacts': {
+    eyebrow: { ua:'Контакти', en:'Contacts' },
+    render: () => `
+      <h2 class="text-2xl font-bold text-gray-900 tracking-tight mb-2">${t('Контакти','Contacts')}</h2>
+      <p class="text-sm text-gray-500 leading-relaxed mb-6">${t('Найшвидший спосіб зі мною зв\'язатися — Telegram. Відповідаю особисто, зазвичай протягом дня.','The fastest way to reach me is Telegram. I reply personally, usually within a day.')}</p>
+
+      <a href="https://t.me/evsdev" target="_blank" class="glass glass-hover rounded-2xl p-5 flex items-center gap-4 block">
+        <div class="w-12 h-12 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600 shrink-0">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </div>
+        <div>
+          <h4 class="font-semibold text-gray-800 text-sm">Telegram</h4>
+          <p class="text-xs text-gray-500">@evsdev</p>
+        </div>
+      </a>
+
+      <div class="mt-6 p-4 rounded-xl bg-gray-50 border border-gray-200/60">
+        <p class="text-xs text-gray-600 leading-relaxed">${t('Перед першим повідомленням буде корисно коротко описати ваш проєкт: тип сайту, орієнтовний обсяг і бажані терміни — це пришвидшить підготовку ескізу.','Before your first message, it helps to briefly describe your project: site type, rough scope, and desired timeline — this speeds up preparing the sketch.')}</p>
+      </div>
+
+      <div class="mt-8">
+        <a href="https://t.me/evsdev" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold transition-colors">${t('Написати зараз','Message now')}</a>
+      </div>
+    `
+  }
+};
+
+function t(ua, en){ return lang === 'ua' ? ua : en; }
+
+function valueRow(num, title, desc){
+  return `<div class="flex gap-4">
+    <span class="text-xs font-bold text-gray-400 font-mono shrink-0 pt-0.5">${num} /</span>
+    <div>
+      <h4 class="font-semibold text-gray-800 text-sm">${title}</h4>
+      <p class="text-xs text-gray-500 leading-relaxed mt-1">${desc}</p>
+    </div>
+  </div>`;
+}
+
+function paymentStep(num, title, desc, isLast){
+  return `<div class="step-item relative pl-10 pb-6 ${isLast ? '' : ''}">
+    <div class="step-line"></div>
+    <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-gray-900 text-white text-xs font-bold flex items-center justify-center">${num}</div>
+    <h4 class="font-semibold text-gray-800 text-sm">${title}</h4>
+    <p class="text-xs text-gray-500 leading-relaxed mt-1">${desc}</p>
+  </div>`;
+}
+
+function priceCard(title, sub, price){
+  return `<div class="p-4 rounded-xl border border-gray-200/60 bg-white/60 space-y-1">
+    <p class="text-sm font-semibold text-gray-800">${title}</p>
+    <p class="text-[11px] text-gray-400">${sub}</p>
+    <p class="text-sm font-bold text-gray-900 pt-1">${price}</p>
+  </div>`;
+}
+
+/* ==================== ПОРТФОЛІО: РЕНДЕР ==================== */
+function renderPortfolio(){
+  const grid = document.getElementById('portfolioGrid');
+  grid.innerHTML = PROJECTS.map(p => {
+    const c = COLOR_MAP[p.color];
+    return `
+    <div class="glass glass-hover rounded-2xl overflow-hidden group flex flex-col cursor-pointer ${p.span ? 'md:col-span-2' : ''}" onclick="openProject('${p.id}')">
+        <div class="bg-white/40 px-4 py-3 flex items-center gap-2 border-b border-white/60">
+            <div class="flex gap-1.5">
+                <div class="w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+            </div>
+            <div class="text-[11px] text-gray-400 font-medium bg-white/70 px-3 py-1 rounded w-full text-center truncate tracking-wide">${p.domainLabel}</div>
+            <a href="${p.link}" target="_blank" onclick="event.stopPropagation()" class="shrink-0 w-6 h-6 rounded flex items-center justify-center text-gray-400 hover:text-gray-900 hover:bg-white transition-colors" title="${t('Відкрити сайт','Open site')}">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+        </div>
+        <div class="${p.height} overflow-hidden bg-white relative border-b border-white/60">
+            <iframe src="${p.link}" class="w-full h-full border-none pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity" loading="lazy"></iframe>
+        </div>
+        <div class="p-5 flex-grow bg-white/20 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+                <h3 class="text-base font-semibold text-gray-900">${p.title}</h3>
+                <span class="shrink-0 text-[10px] font-semibold ${c.text} ${c.bg} border ${c.border} px-2 py-1 rounded-lg">${p.badge[lang]}</span>
+            </div>
+            <p class="text-xs text-gray-500 leading-relaxed">${p.short[lang]}</p>
+            <span class="inline-block text-[11px] font-semibold text-gray-400 group-hover:text-gray-700 transition-colors pt-1">${t('Детальніше →','Details →')}</span>
+        </div>
+    </div>`;
+  }).join('');
+}
+
+/* ==================== OVERLAY / ПСЕВДО-СТОРІНКИ ==================== */
+let currentOverlay = null;
+
+function openOverlay(eyebrowText, html){
+  document.getElementById('overlayEyebrow').textContent = eyebrowText;
+  document.getElementById('overlayContent').innerHTML = html;
+  const overlay = document.getElementById('overlay');
+  const backdrop = document.getElementById('overlayBackdrop');
+  const panel = document.getElementById('overlayPanel');
+  overlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('overlayContent').scrollTop = 0;
+  requestAnimationFrame(() => {
+    backdrop.classList.remove('opacity-0');
+    panel.classList.remove('translate-x-full');
+  });
+}
+
+function closeOverlay(skipHash){
+  const backdrop = document.getElementById('overlayBackdrop');
+  const panel = document.getElementById('overlayPanel');
+  backdrop.classList.add('opacity-0');
+  panel.classList.add('translate-x-full');
+  document.body.style.overflow = '';
+  currentOverlay = null;
+  setTimeout(() => { document.getElementById('overlay').classList.add('hidden'); }, 350);
+  if(!skipHash && location.hash) history.pushState('', document.title, window.location.pathname + window.location.search);
+}
+
+function openPage(pageId){
+  const page = PAGES[pageId];
+  if(!page) return;
+  currentOverlay = { type:'page', id:pageId };
+  openOverlay(page.eyebrow[lang], page.render());
+  history.pushState(null, '', '#page-' + pageId);
+}
+
+function openProject(id){
+  const p = PROJECTS.find(x => x.id === id);
+  if(!p) return;
+  currentOverlay = { type:'project', id };
+  const c = COLOR_MAP[p.color];
+  const html = `
+    <div class="rounded-xl overflow-hidden border border-gray-200 mb-6 h-56 bg-gray-50">
+      <iframe src="${p.link}" class="w-full h-full border-none" loading="lazy"></iframe>
+    </div>
+    <div class="flex items-center gap-2 mb-3">
+      <span class="text-[10px] font-semibold ${c.text} ${c.bg} border ${c.border} px-2 py-1 rounded-lg">${p.badge[lang]}</span>
+    </div>
+    <h2 class="text-2xl font-bold text-gray-900 tracking-tight mb-3">${p.title}</h2>
+    <p class="text-sm text-gray-600 leading-relaxed mb-6">${p.full[lang]}</p>
+    <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">${t('Ключові можливості','Key features')}</h3>
+    <ul class="space-y-2 mb-6">
+      ${p.features[lang].map(f => `<li class="flex items-start gap-2 text-sm text-gray-600"><span class="w-1.5 h-1.5 rounded-full ${c.dot} mt-1.5 shrink-0"></span>${f}</li>`).join('')}
+    </ul>
+    <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">${t('Технології','Technologies')}</h3>
+    <div class="flex flex-wrap gap-2 mb-8">
+      ${p.tech.map(x => `<span class="text-[11px] font-medium text-gray-600 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded-lg">${x}</span>`).join('')}
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <a href="${p.link}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold transition-colors">${t('Переглянути сайт','Visit site')}</a>
+      <button type="button" onclick="openPage('payment')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-semibold transition-colors">${t('Замовити схожий проєкт','Order a similar project')}</button>
+    </div>
+  `;
+  openOverlay(t('Проєкт','Project'), html);
+  history.pushState(null, '', '#project-' + id);
+}
+
+window.addEventListener('popstate', () => {
+  const hash = location.hash;
+  if(!hash){ closeOverlay(true); return; }
+  if(hash.startsWith('#page-')) openPage(hash.replace('#page-',''));
+  else if(hash.startsWith('#project-')) openProject(hash.replace('#project-',''));
+});
+
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && currentOverlay) closeOverlay(); });
+
+/* ==================== МОБІЛЬНЕ МЕНЮ ==================== */
+function openMobileMenu(){ document.getElementById('mobileMenu').classList.remove('hidden'); }
+function closeMobileMenu(){ document.getElementById('mobileMenu').classList.add('hidden'); }
+
+/* ==================== МОВА ==================== */
+function setLang(l){
+  lang = l;
+  document.getElementById('htmlRoot').lang = l === 'ua' ? 'uk' : 'en';
+  document.title = l === 'ua' ? 'EVSpro — Портфоліо розробника' : 'EVSpro — Developer Portfolio';
+
+  ['langBtnUA','langBtnEN','langBtnUA_m','langBtnEN_m'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const isActive = (l === 'ua' && id.startsWith('langBtnUA')) || (l === 'en' && id.startsWith('langBtnEN'));
+    el.classList.toggle('active', isActive);
+    el.classList.toggle('text-gray-500', !isActive);
+  });
+
+  document.querySelectorAll('[data-ua]').forEach(el => {
+    const val = l === 'ua' ? el.getAttribute('data-ua') : el.getAttribute('data-en');
+    if(val === null) return;
+    if(el.hasAttribute('data-html')) el.innerHTML = val; else el.textContent = val;
+  });
+
+  renderPortfolio();
+
+  if(currentOverlay){
+    if(currentOverlay.type === 'page') openPage(currentOverlay.id);
+    else openProject(currentOverlay.id);
+  }
+}
+
+/* ==================== INIT ==================== */
+renderPortfolio();
+if(location.hash.startsWith('#page-')) openPage(location.hash.replace('#page-',''));
+else if(location.hash.startsWith('#project-')) openProject(location.hash.replace('#project-',''));
+</script>
+</body>
+</html>
