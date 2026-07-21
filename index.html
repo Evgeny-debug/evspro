@@ -18,7 +18,7 @@
                     colors: {
                         dark: '#1e1e1e',
                         darker: '#161616',
-                        accent: '#ffb400', // Фірмовий жовтий з шаблону
+                        accent: '#ffb400', 
                         accentHover: '#e5a200'
                     }
                 }
@@ -58,10 +58,8 @@
         #overlayPanel { transition: transform .35s cubic-bezier(.16,1,.3,1); }
         #overlayBackdrop { transition: opacity .3s ease; }
         
-        /* Стиль для активної мови */
         .lang-btn.active { background: #ffb400; color: #161616; }
         
-        /* Лінія етапів роботи */
         .step-line::before{
             content:"";
             position:absolute;
@@ -71,7 +69,6 @@
         }
         .step-item:last-child .step-line::before{ display:none; }
 
-        /* Декоративна лінія заголовків як в шаблоні */
         .title-underline::after {
             content: '';
             display: block;
@@ -150,6 +147,11 @@
                         <svg class="w-4 h-4 text-gray-500 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         <span data-ua="Контакти" data-en="Contacts">Контакти</span>
                     </button>
+                    <!-- ДОДАНО: Прайс-лист Threads -->
+                    <a href="https://www.threads.net/" target="_blank" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all group text-left">
+                        <svg class="w-4 h-4 text-gray-500 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                        <span data-ua="Прайс-лист (Threads)" data-en="Price List (Threads)">Прайс-лист (Threads)</span>
+                    </a>
                 </div>
             </nav>
         </div>
@@ -199,6 +201,8 @@
             <button type="button" onclick="closeMobileMenu(); openPage('payment')" class="w-full text-left px-3 py-3 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-accent transition-colors" data-ua="Оплата" data-en="Payment">Оплата</button>
             <button type="button" onclick="closeMobileMenu(); openPage('guarantee')" class="w-full text-left px-3 py-3 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-accent transition-colors" data-ua="Гарантія" data-en="Guarantee">Гарантія</button>
             <button type="button" onclick="closeMobileMenu(); openPage('contacts')" class="w-full text-left px-3 py-3 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-accent transition-colors" data-ua="Контакти" data-en="Contacts">Контакти</button>
+            <!-- ДОДАНО: Прайс-лист Threads у мобільному меню -->
+            <a href="https://www.threads.net/" target="_blank" class="block w-full text-left px-3 py-3 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-accent transition-colors"><span data-ua="Прайс-лист (Threads)" data-en="Price List (Threads)">Прайс-лист (Threads)</span></a>
         </div>
     </div>
 
@@ -210,7 +214,6 @@
 
     <!-- ОСНОВНИЙ КОНТЕНТ -->
     <div class="flex-1 md:ml-72 flex flex-col min-h-screen relative">
-        <!-- Жовтий акцентний блок на фоні, натхненний шаблоном -->
         <div class="absolute top-0 right-0 w-1/3 h-[500px] bg-accent/5 blur-[120px] pointer-events-none"></div>
 
         <main class="flex-grow max-w-5xl mx-auto px-6 pt-24 md:pt-20 pb-32 space-y-32 w-full z-10">
@@ -236,7 +239,6 @@
 
                 <div class="w-full md:w-1/2 flex justify-center md:justify-end">
                     <div class="relative w-64 h-72 sm:w-80 sm:h-96">
-                        <!-- Декоративна жовта рамка з відступом (стиль шаблону) -->
                         <div class="absolute inset-0 border-[6px] border-accent translate-x-6 translate-y-6"></div>
                         <img src="022DC951-F127-4F56-88FA-038FFA556318.png" alt="Євген (EVSpro)" class="absolute inset-0 w-full h-full object-cover grayscale brightness-90 contrast-125">
                     </div>
@@ -263,15 +265,16 @@
                         </ul>
                     </div>
 
+                    <!-- ОНОВЛЕНО: Більше акценту на ботах і автоматизації -->
                     <div class="bg-dark border border-white/5 p-8 hover:border-accent/50 transition-colors group">
                         <div class="mb-6 text-accent">
                             <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
                         </div>
-                        <h3 class="font-bold text-white text-lg mb-3 group-hover:text-accent transition-colors" data-ua="Backend & Логіка" data-en="Backend & Logic">Backend & Логіка</h3>
-                        <p class="text-sm text-gray-400 mb-6 leading-relaxed" data-ua="Надійні сервери, боти та безпечне підключення API." data-en="Reliable servers, bots, and secure API integration.">Надійні сервери, боти та безпечне підключення API.</p>
+                        <h3 class="font-bold text-white text-lg mb-3 group-hover:text-accent transition-colors" data-ua="Backend & Автоматизація" data-en="Backend & Automation">Backend & Автоматизація</h3>
+                        <p class="text-sm text-gray-400 mb-6 leading-relaxed" data-ua="Надійні сервери, боти для соцмереж та автоматизація бізнес-процесів." data-en="Reliable servers, social media bots, and business process automation.">Надійні сервери, боти для соцмереж та автоматизація бізнес-процесів.</p>
                         <ul class="text-xs text-gray-500 space-y-2 font-medium">
                             <li class="flex items-center gap-3"><span class="w-1.5 h-1px bg-accent w-3"></span> Node.js / Express</li>
-                            <li class="flex items-center gap-3"><span class="w-1.5 h-1px bg-accent w-3"></span> REST API / JSON</li>
+                            <li class="flex items-center gap-3"><span class="w-1.5 h-1px bg-accent w-3"></span> REST API / Telegram Bots</li>
                         </ul>
                     </div>
 
@@ -314,10 +317,11 @@
                         <h4 class="font-bold text-white text-base mb-2" data-ua="Аналітика" data-en="Discovery">Аналітика</h4>
                         <p class="text-sm text-gray-500 leading-relaxed" data-ua="Детально розбираємо ваші цілі та створюємо чітку структуру." data-en="We map out your goals and create a clear structure.">Детально розбираємо ваші цілі та створюємо чітку структуру.</p>
                     </div>
+                    <!-- ОНОВЛЕНО: Додано акцент на масштабування мобільних інтерфейсів -->
                     <div class="p-6 bg-dark border border-white/5 hover:border-accent/50 transition-colors">
                         <span class="text-3xl font-bold text-white/10 font-mono block mb-4">02</span>
-                        <h4 class="font-bold text-white text-base mb-2" data-ua="Ескіз" data-en="Sketch">Ескіз</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed" data-ua="Готую перший візуальний концепт — преміальний та стриманий." data-en="I prepare the first visual concept — premium and restrained.">Готую перший візуальний концепт — преміальний та стриманий.</p>
+                        <h4 class="font-bold text-white text-base mb-2" data-ua="Проєктування & UI" data-en="Design & UI">Проєктування & UI</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed" data-ua="Преміальний ескіз та глибоке масштабування UI (включаючи складну механіку) для мобільних пристроїв." data-en="Premium sketch and deep UI scaling (including complex mechanics) for mobile devices.">Преміальний ескіз та глибоке масштабування UI (включаючи складну механіку) для мобільних пристроїв.</p>
                     </div>
                     <div class="p-6 bg-dark border border-white/5 hover:border-accent/50 transition-colors">
                         <span class="text-3xl font-bold text-white/10 font-mono block mb-4">03</span>
@@ -353,9 +357,21 @@
 /* ==================== ДАНІ / CONTENT ==================== */
 let lang = 'ua';
 
-// Використовуємо єдиний преміальний стиль замість різнокольорових бейджів, 
-// дотримуючись вимоги "no neon, premium dark".
+// ДОДАНО: Проєкт SPA-лендінгу для бренду свічок
 const PROJECTS = [
+  {
+    id: 'candles',
+    badge: { ua:'SPA Лендінг', en:'SPA Landing' },
+    title: 'Candle Studio',
+    link: '#', 
+    domainLabel: 'candle-studio.com',
+    height: 'h-64',
+    span: false,
+    short: { ua:'Односторінковий сайт свічкового бренду з динамічною генерацією контенту.', en:'A single-page candle brand site with dynamic content generation.' },
+    full: { ua:'SPA-лендінг для бренду свічок. Вся навігація та відображення контенту відбуваються на стороні клієнта у єдиному index-файлі, забезпечуючи миттєву швидкість.', en:'SPA landing page for a candle brand. All navigation and content rendering happen client-side in a single index file, ensuring instant speed.' },
+    features: { ua:['Динамічний клієнтський рендеринг','Миттєве завантаження без перезавантажень','Преміальний темний дизайн'], en:['Dynamic client-side rendering','Instant loading without reloads','Premium dark design'] },
+    tech: ['JavaScript','HTML5 / CSS3', 'Tailwind']
+  },
   {
     id: 'moda',
     badge: { ua:'E-commerce', en:'E-commerce' },
@@ -367,19 +383,6 @@ const PROJECTS = [
     short: { ua:'Інтернет-магазин одягу преміум-класу. Зручний адаптивний інтерфейс.', en:'A premium clothing store. A clean, responsive interface.' },
     full: { ua:'Повноцінний інтернет-магазин одягу з акцентом на швидкість і зручність покупки. Каталог адаптований під будь-який екран.', en:'A full clothing e-commerce store focused on speed and ease of purchase. The catalog adapts to any screen.' },
     features: { ua:['Адаптивна верстка під усі пристрої','Каталог з фільтрами','Оптимізована воронка покупки'], en:['Fully responsive layout','Filterable catalog','Conversion-optimized checkout flow'] },
-    tech: ['HTML / CSS / JS','Tailwind CSS']
-  },
-  {
-    id: 'evspro',
-    badge: { ua:'Портфоліо', en:'Portfolio' },
-    title: 'EVS.pro',
-    link: 'https://evgeny-debug.github.io/EVS.pro',
-    domainLabel: 'evs.pro',
-    height: 'h-64',
-    span: false,
-    short: { ua:'Особистий веб-хаб для демонстрації архітектури SPA.', en:'A personal web hub demonstrating SPA architecture.' },
-    full: { ua:'Проєкт, створений як демонстрація архітектурного підходу: мінімальний час завантаження та чиста структура.', en:'A project built to demonstrate architectural approach: minimal load time and clean structure.' },
-    features: { ua:['Нульовий час завантаження','Чиста компонентна структура'], en:['Near-zero load time','Clean component structure'] },
     tech: ['HTML / CSS / JS','Tailwind CSS']
   },
   {
